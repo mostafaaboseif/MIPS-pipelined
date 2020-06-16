@@ -1,0 +1,5 @@
+// memory data file (do not edit the following line - required for mem load use)
+// instance=/atb_all/aa/Imemory
+// format=bin addressradix=h dataradix=b version=1.0 wordsperline=1
+@0 00000010001100100100100000100000
+@1 11111111111111111111111111111111

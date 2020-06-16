@@ -1,0 +1,15 @@
+[Inputs]
+abutton
+bbutton
+funct
+rxflag
+txzero
+reset
+=rxdata[7:0]=
+[Outputs]
+txflag
+=led[7:0]=
+[BiDir]
+[ATTRIBUTES]
+VeriModel FIFO
+

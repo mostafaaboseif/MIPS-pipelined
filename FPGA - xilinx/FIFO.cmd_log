@@ -1,0 +1,10 @@
+vhdtdtfi -lib work C:/Users/Dark/Downloads/1SerialAddition09112019/ssssop/n.v -lang verilog -prj ssssop -o FIFO.spl -module FIFO -template C:/Xilinx/14.7/ISE_DS/ISE//data/splveri.tft -deleteonerror 
+spl2sym -intstyle ise -family zynq FIFO.spl C:/Users/Dark/Downloads/1SerialAddition09112019/ssssop/FIFO.sym 
+vhdtdtfi -lib work C:/Users/Dark/Downloads/1SerialAddition09112019/ssssop/n.v -lang verilog -prj ssssop -o FIFO.spl -module FIFO -template C:/Xilinx/14.7/ISE_DS/ISE//data/splveri.tft -deleteonerror 
+spl2sym -intstyle ise -family zynq FIFO.spl C:/Users/Dark/Downloads/1SerialAddition09112019/ssssop/FIFO.sym 
+vhdtdtfi -lib work C:/Users/Dark/Downloads/1SerialAddition09112019/ssssop/n.v -lang verilog -prj ssssop -o FIFO.spl -module FIFO -template C:/Xilinx/14.7/ISE_DS/ISE//data/splveri.tft -deleteonerror 
+spl2sym -intstyle ise -family zynq FIFO.spl C:/Users/Dark/Downloads/1SerialAddition09112019/ssssop/FIFO.sym 
+vhdtdtfi -lib work C:/Users/Dark/Downloads/1SerialAddition09112019/ssssop/n.v -lang verilog -prj ssssop -o FIFO.spl -module FIFO -template C:/Xilinx/14.7/ISE_DS/ISE//data/splveri.tft -deleteonerror 
+spl2sym -intstyle ise -family zynq FIFO.spl C:/Users/Dark/Downloads/1SerialAddition09112019/ssssop/FIFO.sym 
+vhdtdtfi -lib work C:/Users/Dark/Downloads/1SerialAddition09112019/ssssop/n.v -lang verilog -prj ssssop -o FIFO.spl -module FIFO -template C:/Xilinx/14.7/ISE_DS/ISE//data/splveri.tft -deleteonerror 
+spl2sym -intstyle ise -family zynq FIFO.spl C:/Users/Dark/Downloads/1SerialAddition09112019/ssssop/FIFO.sym 

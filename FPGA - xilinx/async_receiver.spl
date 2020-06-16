@@ -1,0 +1,12 @@
+[Inputs]
+clk
+RxD
+[Outputs]
+RxD_data_ready
+RxD_idle
+RxD_endofpacket
+=RxD_data[7:0]=
+[BiDir]
+[ATTRIBUTES]
+VeriModel async_receiver
+

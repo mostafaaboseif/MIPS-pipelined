@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<symbol version="7" name="copy_of_fdc">
+    <symboltype>BLOCK</symboltype>
+    <timestamp>2019-11-14T11:30:20</timestamp>
+    <attr value="FDC" name="VeriModel" />
+    <attr value="0" name="INIT">
+        <trait verilog="all:0 dp:1" />
+        <trait vhdl="all:0 gm:1" />
+        <trait valuetype="Bit" />
+    </attr>
+    <attr value="DFF" name="Device" />
+    <attr value="Copy Of Symbol With Level: XILINX" name="Level" />
+    <attr value="FDC" name="VhdlModel" />
+    <attr value="2.0.0" name="Libver" />
+    <pin polarity="Input" x="144" y="-32" name="CLR" />
+    <pin polarity="Input" x="0" y="-96" name="C" />
+    <pin polarity="Input" x="0" y="-144" name="D" />
+    <pin polarity="Output" x="240" y="-128" name="Q" />
+    <graph>
+        <rect width="116" x="64" y="-168" height="104" />
+        <line x2="144" y1="-64" y2="-32" x1="144" />
+        <text style="alignment:CENTER;fontsize:18;fontname:Arial" x="144" y="-80">CLR</text>
+        <line x2="64" y1="-96" y2="-96" x1="0" />
+        <line x2="80" y1="-80" y2="-96" x1="64" />
+        <line x2="64" y1="-96" y2="-112" x1="80" />
+        <line x2="64" y1="-144" y2="-144" x1="0" />
+        <line x2="176" y1="-128" y2="-128" x1="240" />
+        <text style="alignment:CENTER;fontsize:28;fontname:Arial" x="124" y="-184">FDC</text>
+        <text style="fontsize:18;fontname:Arial" x="68" y="-144">D</text>
+        <text style="alignment:RIGHT;fontsize:18;fontname:Arial" x="172" y="-128">Q</text>
+        <text style="alignment:CENTER;fontsize:18;fontname:Arial" x="92" y="-96">C</text>
+    </graph>
+</symbol>

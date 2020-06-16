@@ -1,0 +1,25 @@
+main: add $a1, $s1, $zero
+jal 2000
+add $s2, $v0, $zero
+
+
+
+addi $sp, $sp, -8
+sw $ra, 4 ($sp)
+sw $a1, 0 ($sp)
+add $a1, $a0, $zero
+jal 4000
+$a1, 0 ($sp)
+lw $ra, 4 ($sp)
+$sp, $sp, 8
+add $v0, $v0, $a1
+jr $ra
+
+
+addi $sp, $sp, -4
+sw $s0, 0 ($sp)
+add $s0, $a0, $a1
+add $v0, $s0, $zero
+lw $s0, 0 ($sp)
+addi $sp, $sp, 4
+jr $ra

@@ -1,0 +1,18 @@
+C:/Modeltech_pe_edu_10.4a/examples/fmips.v {1 {vlog -work work -stats=none {C:\Modeltech_pe_edu_10.4a\examples\fmips.v}
+Model Technology ModelSim PE Student Edition vlog 10.4a Compiler 2015.03 Apr  7 2015
+-- Compiling module registerFile
+-- Compiling module iMem
+-- Compiling module dMem
+-- Compiling module controlUnit
+-- Compiling module aluControl
+-- Compiling module mux
+-- Compiling module mux5bit
+-- Compiling module signExtend
+-- Compiling module zeroExtend
+-- Compiling module alu
+-- Compiling module atb_all
+
+Top level modules:
+	atb_all
+
+} {} {}}

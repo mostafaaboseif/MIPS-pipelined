@@ -1,0 +1,2 @@
+vhdtdtfi -lib work C:/Users/Dark/Downloads/1SerialAddition09112019/ssssop/l.v -lang verilog -prj ssssop -o async_receiver.spl -module async_receiver -template C:/Xilinx/14.7/ISE_DS/ISE//data/splveri.tft -deleteonerror 
+spl2sym -intstyle ise -family zynq async_receiver.spl C:/Users/Dark/Downloads/1SerialAddition09112019/ssssop/async_receiver.sym 

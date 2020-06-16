@@ -1,0 +1,139 @@
+--------------------------------------------------------------------------------
+Release 14.7 Trace  (nt64)
+Copyright (c) 1995-2013 Xilinx, Inc.  All rights reserved.
+
+C:\Xilinx\14.7\ISE_DS\ISE\bin\nt64\unwrapped\trce.exe -intstyle ise -v 3 -s 1
+-n 3 -fastpaths -xml loop22op.twx loop22op.ncd -o loop22op.twr loop22op.pcf
+-ucf ucfop.ucf
+
+Design file:              loop22op.ncd
+Physical constraint file: loop22op.pcf
+Device,package,speed:     xc7z020,clg484,C,-1 (PRODUCTION 1.08 2013-10-13)
+Report level:             verbose report
+
+Environment Variable      Effect 
+--------------------      ------ 
+NONE                      No environment variables were set
+--------------------------------------------------------------------------------
+
+INFO:Timing:2698 - No timing constraints found, doing default enumeration.
+INFO:Timing:3412 - To improve timing, see the Timing Closure User Guide (UG612).
+INFO:Timing:2752 - To get complete path coverage, use the unconstrained paths 
+   option. All paths that are not constrained will be reported in the 
+   unconstrained paths section(s) of the report.
+INFO:Timing:3339 - The clock-to-out numbers in this timing report are based on 
+   a 50 Ohm transmission line loading model.  For the details of this model, 
+   and for more information on accounting for different loading conditions, 
+   please see the device datasheet.
+
+
+
+Data Sheet report:
+-----------------
+All values displayed in nanoseconds (ns)
+
+Setup/Hold to clock clk
+------------+------------+------------+------------+------------+------------------+--------+
+            |Max Setup to|  Process   |Max Hold to |  Process   |                  | Clock  |
+Source      | clk (edge) |   Corner   | clk (edge) |   Corner   |Internal Clock(s) | Phase  |
+------------+------------+------------+------------+------------+------------------+--------+
+RxD         |    0.793(R)|      FAST  |    1.241(R)|      SLOW  |clk_BUFGP         |   0.000|
+------------+------------+------------+------------+------------+------------------+--------+
+
+Clock clk to Pad
+------------+-----------------+------------+-----------------+------------+------------------+--------+
+            |Max (slowest) clk|  Process   |Min (fastest) clk|  Process   |                  | Clock  |
+Destination |  (edge) to PAD  |   Corner   |  (edge) to PAD  |   Corner   |Internal Clock(s) | Phase  |
+------------+-----------------+------------+-----------------+------------+------------------+--------+
+TxD         |        15.285(R)|      SLOW  |         4.727(R)|      FAST  |clk_BUFGP         |   0.000|
+------------+-----------------+------------+-----------------+------------+------------------+--------+
+
+Clock reset to Pad
+------------+-----------------+------------+-----------------+------------+------------------+--------+
+            |Max (slowest) clk|  Process   |Min (fastest) clk|  Process   |                  | Clock  |
+Destination |  (edge) to PAD  |   Corner   |  (edge) to PAD  |   Corner   |Internal Clock(s) | Phase  |
+------------+-----------------+------------+-----------------+------------+------------------+--------+
+led<0>      |        11.240(R)|      SLOW  |         4.152(R)|      FAST  |reset_IBUF_BUFG   |   0.000|
+led<1>      |        11.233(R)|      SLOW  |         4.145(R)|      FAST  |reset_IBUF_BUFG   |   0.000|
+led<2>      |        11.249(R)|      SLOW  |         4.161(R)|      FAST  |reset_IBUF_BUFG   |   0.000|
+led<3>      |        11.249(R)|      SLOW  |         4.161(R)|      FAST  |reset_IBUF_BUFG   |   0.000|
+led<4>      |        11.253(R)|      SLOW  |         4.166(R)|      FAST  |reset_IBUF_BUFG   |   0.000|
+led<5>      |        11.247(R)|      SLOW  |         4.160(R)|      FAST  |reset_IBUF_BUFG   |   0.000|
+led<6>      |        11.231(R)|      SLOW  |         4.143(R)|      FAST  |reset_IBUF_BUFG   |   0.000|
+led<7>      |        11.221(R)|      SLOW  |         4.133(R)|      FAST  |reset_IBUF_BUFG   |   0.000|
+------------+-----------------+------------+-----------------+------------+------------------+--------+
+
+Clock to Setup on destination clock abutton
+---------------+---------+---------+---------+---------+
+               | Src:Rise| Src:Fall| Src:Rise| Src:Fall|
+Source Clock   |Dest:Rise|Dest:Rise|Dest:Fall|Dest:Fall|
+---------------+---------+---------+---------+---------+
+clk            |         |         |    1.721|         |
+reset          |         |         |   -1.334|   -1.334|
+---------------+---------+---------+---------+---------+
+
+Clock to Setup on destination clock bbutton
+---------------+---------+---------+---------+---------+
+               | Src:Rise| Src:Fall| Src:Rise| Src:Fall|
+Source Clock   |Dest:Rise|Dest:Rise|Dest:Fall|Dest:Fall|
+---------------+---------+---------+---------+---------+
+clk            |         |         |    1.799|         |
+reset          |         |         |   -1.153|   -1.153|
+---------------+---------+---------+---------+---------+
+
+Clock to Setup on destination clock clk
+---------------+---------+---------+---------+---------+
+               | Src:Rise| Src:Fall| Src:Rise| Src:Fall|
+Source Clock   |Dest:Rise|Dest:Rise|Dest:Fall|Dest:Fall|
+---------------+---------+---------+---------+---------+
+clk            |    3.396|         |         |         |
+reset          |    3.825|         |         |         |
+---------------+---------+---------+---------+---------+
+
+Clock to Setup on destination clock funct
+---------------+---------+---------+---------+---------+
+               | Src:Rise| Src:Fall| Src:Rise| Src:Fall|
+Source Clock   |Dest:Rise|Dest:Rise|Dest:Fall|Dest:Fall|
+---------------+---------+---------+---------+---------+
+clk            |         |         |    8.731|         |
+funct          |         |         |    3.607|    8.396|
+reset          |         |         |   -0.423|   -0.423|
+txzero         |         |         |    0.572|    0.572|
+---------------+---------+---------+---------+---------+
+
+Clock to Setup on destination clock reset
+---------------+---------+---------+---------+---------+
+               | Src:Rise| Src:Fall| Src:Rise| Src:Fall|
+Source Clock   |Dest:Rise|Dest:Rise|Dest:Fall|Dest:Fall|
+---------------+---------+---------+---------+---------+
+abutton        |    5.209|   10.497|         |         |
+bbutton        |    5.177|   10.650|         |         |
+clk            |    9.714|         |    8.731|         |
+funct          |    5.961|   11.755|    5.163|    8.396|
+reset          |         |         |    0.403|    0.403|
+txzero         |         |         |    2.128|    2.128|
+---------------+---------+---------+---------+---------+
+
+Clock to Setup on destination clock txzero
+---------------+---------+---------+---------+---------+
+               | Src:Rise| Src:Fall| Src:Rise| Src:Fall|
+Source Clock   |Dest:Rise|Dest:Rise|Dest:Fall|Dest:Fall|
+---------------+---------+---------+---------+---------+
+clk            |         |         |    8.731|         |
+funct          |         |         |    3.729|    8.396|
+reset          |         |         |   -0.310|   -0.310|
+txzero         |         |         |    0.694|    0.694|
+---------------+---------+---------+---------+---------+
+
+
+Analysis completed Fri Nov 15 02:34:43 2019 
+--------------------------------------------------------------------------------
+
+Trace Settings:
+-------------------------
+Trace Settings 
+
+Peak Memory Usage: 4955 MB
+
+
+

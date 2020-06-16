@@ -1,0 +1,77 @@
+////////////////////////////////////////////////////////////////////////////////
+// Copyright (c) 1995-2013 Xilinx, Inc.  All rights reserved.
+////////////////////////////////////////////////////////////////////////////////
+//   ____  ____ 
+//  /   /\/   / 
+// /___/  \  /    Vendor: Xilinx 
+// \   \   \/     Version : 14.7
+//  \   \         Application : sch2hdl
+//  /   /         Filename : loop22op.vf
+// /___/   /\     Timestamp : 11/14/2019 13:43:51
+// \   \  /  \ 
+//  \___\/\___\ 
+//
+//Command: sch2hdl -intstyle ise -family zynq -verilog C:/Users/Dark/Downloads/1SerialAddition09112019/ssssop/loop22op.vf -w C:/Users/Dark/Downloads/1SerialAddition09112019/ssssop/loop22op.sch
+//Design Name: loop22op
+//Device: zynq
+//Purpose:
+//    This verilog netlist is translated from an ECS schematic.It can be 
+//    synthesized and simulated, but it should not be modified. 
+//
+`timescale 1ns / 1ps
+
+module loop22op(abutton, 
+                bbutton, 
+                clk, 
+                funct, 
+                reset, 
+                RxD, 
+                txzero, 
+                led, 
+                TxD);
+
+    input abutton;
+    input bbutton;
+    input clk;
+    input funct;
+    input reset;
+    input RxD;
+    input txzero;
+   output [7:0] led;
+   output TxD;
+   
+   wire XLXN_10;
+   wire [7:0] XLXN_11;
+   wire XLXN_23;
+   wire XLXN_24;
+   wire XLXN_32;
+   wire XLXN_33;
+   wire [7:0] led_DUMMY;
+   
+   assign led[7:0] = led_DUMMY[7:0];
+   async_transmitter  XLXI_1 (.clk(clk), 
+                             .TxD_data(led_DUMMY[7:0]), 
+                             .TxD_start(XLXN_23), 
+                             .TxD(TxD), 
+                             .TxD_busy(XLXN_33));
+   async_receiver  XLXI_3 (.clk(clk), 
+                          .RxD(RxD), 
+                          .RxD_data(XLXN_11[7:0]), 
+                          .RxD_data_ready(XLXN_10), 
+                          .RxD_endofpacket(), 
+                          .RxD_idle());
+   FIFO  XLXI_6 (.abutton(abutton), 
+                .bbutton(bbutton), 
+                .funct(funct), 
+                .reset(reset), 
+                .rxdata(XLXN_11[7:0]), 
+                .rxflag(XLXN_10), 
+                .txzero(txzero), 
+                .led(led_DUMMY[7:0]), 
+                .txflag(XLXN_32));
+   VCC  XLXI_11 (.P(XLXN_24));
+   FDC #( .INIT(1'b0) ) XLXI_12 (.C(XLXN_32), 
+                .CLR(XLXN_33), 
+                .D(XLXN_24), 
+                .Q(XLXN_23));
+endmodule

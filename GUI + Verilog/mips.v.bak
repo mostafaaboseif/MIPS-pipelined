@@ -1,0 +1,240 @@
+module alu(ctrl,a,b,shamt,out,zeroFlag);
+input [3:0] ctrl ;
+input [31:0] a,b ;
+input [4:0]shamt;
+output reg [31:0] out;
+output zeroFlag;
+assign zeroFlag=(a==b?1:0);
+always@(a,b,ctrl)
+case(ctrl)
+0:out<=a&b;
+1:out<=a|b;
+2:out<=a+b;
+6:out<=a-b;
+7:out<=(a>b?0:1);
+8:out<=a^b; //xor
+12:out<=~(a|b);
+13:out<=(a>>shamt); //srl
+14:out<=(a<<shamt); //sll
+15:out<=(a>>>shamt); //sra
+endcase
+endmodule 
+
+module registerFile(readReg1,readReg2,writeReg,writeData,regWrite,readData1,readData2,clk);
+input[4:0] readReg1,readReg2,writeReg;
+input [31:0] writeData;
+input regWrite,clk;
+output [31:0] readData1,readData2;
+integer file;
+integer i;
+reg[31:0] Rf[0:31];
+reg [31:0] a;
+integer count;
+assign readData1 = Rf[readReg1];
+assign readData2 = Rf[readReg2];
+always@(posedge clk)
+begin
+ if (regWrite)Rf[writeReg] <= writeData;
+end
+endmodule
+
+module iMem (instruction,pc,clk);
+input [31:0] pc;
+input clk;
+output reg [31:0] instruction;
+integer file;
+reg [31:0] Imemory[0:31];
+always @(posedge clk)
+begin
+instruction <= Imemory[pc];
+end
+endmodule
+
+module mux(sel,A,B,result);
+input [31:0] A;
+input [31:0] B;
+input sel;
+output [31:0] result;
+assign result = (~sel)?A:(sel)?B:32'hxxxxxxxx;
+endmodule
+
+module mux5bit(sel,A,B,result);
+input [4:0] A;
+input [4:0] B;
+input sel;
+output [4:0] result;
+assign result = (~sel)?A:(sel)?B:5'bxxxxx;
+endmodule
+
+module signExtend(im,imExtended);
+input wire [15:0] im;
+output reg [31:0] imExtended;
+always@ (im)
+begin
+if(im[15]==1)
+imExtended <= {16'hffff,im}; 
+else if(im[15]==0)
+imExtended <= {16'h0000,im};
+else 
+imExtended <= 32'hxxxxxxxx;
+end
+endmodule
+
+module zeroExtend(im,imExtended);
+input wire [15:0] im;
+output [31:0] imExtended;
+assign imExtended = {16'h0000,im};
+endmodule 
+
+module dMem(address,memRead,memWrite,writeData,readData,clk);
+input [31:0] address ;
+input memRead,memWrite;
+input [31:0] writeData;
+output reg [31:0] readData;
+reg [31:0] Dmemory[0:31];
+input clk;
+integer file;
+always @(negedge clk)
+begin
+if(memRead==1&&memWrite==0)
+readData<=Dmemory[address];
+else if(memRead==0&&memWrite==1)
+begin
+Dmemory[address] <= writeData;
+readData<=32'hzzzzzzzz;
+end
+else if(memRead==0&&memWrite==0)
+readData <= 32'hzzzzzzzz;
+else 
+readData<=32'hxxxxxxxx;
+end
+endmodule
+
+module controlUnit (op,regDst,branch,bne,memRead,memtoReg,aluOp,memWrite,aluSrc,regWrite,jump,raMux);
+input [5:0] op ;
+output reg regDst,branch,memRead,memtoReg,memWrite,aluSrc,regWrite,jump,bne,raMux;
+output reg [1:0] aluOp;
+
+always @(op)
+begin
+case(op)
+0:{regDst,aluSrc,memtoReg,regWrite,memRead,memWrite,branch,bne,aluOp,jump,raMux}<=12'b100100001000;//R-format
+35:{regDst,aluSrc,memtoReg,regWrite,memRead,memWrite,branch,bne,aluOp,jump,raMux}<=12'b011110000000;//lw
+43:{regDst,aluSrc,memtoReg,regWrite,memRead,memWrite,branch,bne,aluOp,jump,raMux}<=12'bx1x001000000;//sw
+4:{regDst,aluSrc,memtoReg,regWrite,memRead,memWrite,branch,bne,aluOp,jump,raMux}<=12'bx0x000100100;//beq
+5:{regDst,aluSrc,memtoReg,regWrite,memRead,memWrite,branch,bne,aluOp,jump,raMux}<=12'bx0x000010100;//bne
+2:{regDst,aluSrc,memtoReg,regWrite,memRead,memWrite,branch,bne,aluOp,jump,raMux}<=12'bxxx000xxxx10;//j
+8:{regDst,aluSrc,memtoReg,regWrite,memRead,memWrite,branch,bne,aluOp,jump,raMux}<=12'b010100000000;//addi
+13:{regDst,aluSrc,memtoReg,regWrite,memRead,memWrite,branch,bne,aluOp,jump,raMux}<=12'b010100001100;//ori
+3:{regDst,aluSrc,memtoReg,regWrite,memRead,memWrite,branch,bne,aluOp,jump,raMux}<=12'bxxx000xxxx11;//jal
+63:{regDst,aluSrc,memtoReg,regWrite,memRead,memWrite,branch,bne,aluOp,jump,raMux}<=12'bxxxxxxxxxxxx;//save
+endcase
+end
+
+endmodule
+
+module aluControl (aluOp,funct,aluFn,jr);
+input [1:0] aluOp;
+input [5:0] funct;
+output reg [3:0] aluFn;
+output  reg jr ;
+//input clk;
+always@(aluOp,funct)
+begin
+if(aluOp==0)begin aluFn<=4'b0010  ; jr<=0; end
+else if(aluOp==1) begin aluFn<=4'b0110; jr<=0; end 
+else if(aluOp==3) begin aluFn<=4'b0001; jr<=0; end
+else if(aluOp==2)//R-format
+begin
+case(funct)
+0:begin aluFn<=14;jr<=0; end //sll
+2:begin aluFn<=13;jr<=0; end //srl
+3:begin aluFn<=15;jr<=0; end //sra
+8:begin aluFn<=4'bxxxx;jr<=1; end //jr
+32:begin aluFn<=4'b0010;jr<=0; end //add
+34:begin aluFn<=4'b0110;jr<=0; end //sub
+36:begin aluFn<=4'b0000;jr<=0; end //and
+37:begin aluFn<=4'b0001;jr<=0; end //or
+38:begin aluFn<=8;jr<=0; end //xor
+39:begin aluFn<=4'b1100;jr<=0; end //nor
+42:begin aluFn<=4'b0111;jr<=0; end //slt
+endcase
+end
+else aluFn<=4'bxxxx;
+end
+endmodule
+
+module atb_all();
+integer pc,pcout,file,i;
+wire [4:0] writeRegPre,writeReg;
+wire [31:0] writeData,writeDataPre;
+reg clk;
+wire zeroFlag,regDst,aluSrc,memtoReg,regWrite,memWrite,memRead,jump,branch,jr,bne,raMux;
+wire [3:0] aluCtrl;
+wire [31:0] readData1,readData2,aluResult,writeDataMem,readDataMem;
+wire [31:0] imExtended,aluInput2,signExtended,zeroExtended;
+wire [31:0] instruction;
+wire [15:0] im;
+wire [5:0] op,funct;
+wire [4:0] rs,rt,rd,shamt;
+wire [1:0] aluOp;
+wire extendSignal ;
+reg [31:0] m;
+
+assign op = instruction [31:26];
+assign rs = instruction [25:21];
+assign rt = instruction [20:16];
+assign rd = instruction [15:11];
+assign im = instruction [15:0];
+assign shamt = instruction [10:6];
+assign funct = instruction [5:0]; 
+assign extendSignal=aluOp[0]&&aluOp[1];
+
+iMem aa (instruction,pc,clk);
+registerFile bb (rs,rt,writeReg,writeData,(regWrite&&(!jr)),readData1,readData2,clk);
+alu cc (aluCtrl,readData1,aluInput2,shamt,aluResult,zeroFlag);
+dMem dd (aluResult,memRead,memWrite,readData2,readDataMem,clk);
+signExtend ee (im,signExtended);
+mux muxAluSrc (aluSrc,readData2,imExtended,aluInput2);
+mux muxMemtoReg (memtoReg,aluResult,readDataMem,writeDataPre);
+mux5bit muxRegDst (regDst,rt,rd,writeRegPre);
+controlUnit ii (op,regDst,branch,bne,memRead,memtoReg,aluOp,memWrite,aluSrc,regWrite,jump,raMux);
+aluControl jj (aluOp,funct,aluCtrl,jr);
+zeroExtend kk (im,zeroExtended);
+mux LL(extendSignal,signExtended,zeroExtended,imExtended);
+mux5bit mm(raMux,writeRegPre,5'b11111,writeReg);
+mux nn(raMux,writeDataPre,pc,writeData);
+initial
+begin
+pc=-1;
+clk=1;
+end
+
+always@(posedge clk)
+begin
+pc<=pc+1;m<=pc;
+if(jr)pc<=readData1;
+else if(jump)pc<={pc[31:28],(instruction[25:0]<<2)};
+else if((branch&&zeroFlag)||(bne&&!zeroFlag)) pc<=((imExtended<<2)+pc);
+end
+
+always@(posedge clk)
+begin
+if(instruction == 32'hffffffff)
+begin
+file = $fopen ("pc.txt", "w");
+$fwrite(file,"%b",m);
+end
+end
+
+always
+begin
+#1
+clk=~clk;
+end
+
+endmodule
+
+
+
+

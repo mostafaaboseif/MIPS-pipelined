@@ -1,0 +1,27 @@
+# depslib dependency file v1.0
+1574044290 source:c:\users\dark\desktop\assembler\1111.c
+	<iostream>
+	<iomanip>
+	<fstream>
+	<string>
+	<string.h>
+	<stdlib.h>
+	<vector>
+	<sstream>
+	<iterator>
+	<map>
+	<regex>
+
+1574044315 source:c:\users\dark\desktop\assembler\main.cpp
+	<iostream>
+	<iomanip>
+	<fstream>
+	<string>
+	<string.h>
+	<stdlib.h>
+	<vector>
+	<sstream>
+	<iterator>
+	<map>
+	<regex>
+

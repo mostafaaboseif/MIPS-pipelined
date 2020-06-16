@@ -1,0 +1,11 @@
+[Inputs]
+clk
+TxD_start
+=TxD_data[7:0]=
+[Outputs]
+TxD
+TxD_busy
+[BiDir]
+[ATTRIBUTES]
+VeriModel async_transmitter
+
